@@ -14,6 +14,8 @@ var ball;
 var img;
 var objectHeight;
 var objectWidth;
+var itemArray;
+var x;
 
 /*preload our images*/
 function preload() {
@@ -28,21 +30,28 @@ function setup() {
   createCanvas(displayWidth, displayHeight);
   background(0);
   /*Every few seconds we want a new object to appear at the top of the screen*/
-  setInterval(init, 3000);
+  //setInterval(init, 3000);
 }
 
 /* Item Class */
-function Item(img) {
+function Item(img, y, x, objectHeight, objectWidth) {
   this.img = img;
-  randomX = random(1, width-20);
-  y = 15;
+  //this.randomX = randomX;
+  this.x = x;
+  this.y = y;
+  this.objectHeight = objectHeight;
+  this.objectWidth = objectWidth;
+  /*select random number along x-axis */
+  //this.randomX = random(1, width-20);
 
+  this.draw = function(){
+    console.log("this is the img:", this.img);   
+    //image(this.img, this.x, this.y, this.objectWidth, this.objectHeight);//
+  }
   this.update = function(){
+    this.y = this.y + 5;
+    this.draw();
   }
-
-  this.show = function(){
-  }
-
 }
 
 /*generate random img*/
@@ -54,31 +63,55 @@ function imgSelect(){
    switch( r ){
     case 0:
       img = "purple_ball";
-      //objectHeight = 25;
-      //objectWidth = 25;
+      console.log("img select:", img);
       return img;
     case 1:
       console.log('blue');
       img = "blue_club";
+      console.log("img select:", img);
       return img;
     case 2:
       console.log('red');
       img = "red_ball";
+      console.log("img select:", img);
       return img;
     case 3:
       img = "pink_club";
+      console.log("img select:", img);
       return img;
   }
 }
 
+/*initialize objects*/
 function init() {
-  img = imgSelect();
-  Item(img);
+  /*initialize variables*/
+  itemArray = [];
+  /* y-axis */
+  y = 15;
+  x = 30;
+
+  if(img === "red_ball" || img === "purple_ball"){
+    objectHeight = 25;
+    objectWidth = 25;
+  }else{
+    objectHeight = 50;
+    objectWidth = 15;
+  }
+
+  /*produce an array of Items*/
+  for(var i = 0; i < 10; i++){
+    img = imgSelect();
+    itemArray.push(new Item(img, y, x,objectHeight, objectWidth) );
+  }
+  console.log(itemArray);
 }
 
 function draw() {
-  this.show();
-  
+  for(var i=0; i < itemArray.length; i++) {
+     console.log(itemArray[i]);
+     itemArray[i].update(i);
+  }
 }
 
+init();
 /* images won't load so I run http-server.  But now images seem to load but nothing will display on the canvas*/
