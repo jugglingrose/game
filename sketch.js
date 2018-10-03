@@ -8,6 +8,11 @@ var unicorn;
 
 var r;
 var itemArray;
+var randomX;
+var y;
+var objectHeight;
+var objectWidth;
+var selectedimg;
 
 /*preload our images*/
 function preload() {
@@ -22,9 +27,9 @@ function setup() {
   /*set up a black canvas to cover the full display height and width*/
   createCanvas(displayWidth, displayHeight);
   background(0);
-  /*Every few seconds we want a new object to appear at the top of the screen*/
-  //setInterval(init, 3000);
   init();
+  /*Every few seconds we want a new object to appear at the top of the screen*/
+  setInterval(addToArray, 3000);
 }
 
 /* Item Class */
@@ -65,34 +70,44 @@ function imgSelect(){
   }
 }
 
-/*initialize objects*/
-function init() {
-  /*initialize variables*/
-  itemArray = [];
+/*this function will set our variables for each item in our array*/
+function setVariables() {
   /* y-axis */
-  var y = 15;
-  //var x = 30;
+  y = 15;
 
-  /*produce an array of Items*/
-  for(var i = 0; i < 10; i++){
+  /*select random number along x-axis */
+  randomX = random(1, width-20);
 
-    /*select random number along x-axis */
-    var randomX = random(1, width-20);
+  /*call imgSelect() to select a random image*/
+  selectedimg = imgSelect();
 
-    /*call imgSelect() to select a random image*/
-    var selectedimg = imgSelect();
+  /*set height and width of objects depending on the type of selectedimg selected*/
+  if(selectedimg === red_ball || selectedimg === purple_ball){
+    objectHeight = 25;
+    objectWidth = 25;
+  
+  }else{
+    objectHeight = 50;
+    objectWidth = 15;
+  }
+}
 
-    /*set height and width of objects depending on the type of object selected*/
-    if(selectedimg === red_ball || selectedimg === purple_ball){
-      var objectHeight = 25;
-      var objectWidth = 25;
-    }else{
-      var objectHeight = 50;
-      var objectWidth = 15;
-    }
+/*After we have our initial array.  A setInterval will call this function and we will push
+a new item to our itemArray every few seconds*/
+function addToArray() {
+  for(var i =0; i < 1; i ++){
+    setVariables();
+    itemArray.push(new Item(selectedimg, y, randomX,objectHeight, objectWidth))
+  }
+  console.log('new item array:', itemArray);
+}
 
-    /*Push items into array */
-    itemArray.push(new Item(selectedimg, y, randomX,objectHeight, objectWidth) );
+/* initialize the first item of the itemArray */
+function init() {
+  itemArray = [];
+  for(var i =0; i < 1; i ++){
+    setVariables();
+    itemArray.push(new Item(selectedimg, y, randomX,objectHeight, objectWidth))
   }
   console.log(itemArray);
 }
