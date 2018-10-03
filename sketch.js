@@ -5,7 +5,7 @@ var purple_ball;
 var pink_club;
 var red_ball;
 var fire_torch;
-var unicornCharacter;
+var mainCharacter;
 var unicorn;
 
 var r;
@@ -26,13 +26,13 @@ function preload() {
   unicorn = loadImage('/assets/unciron_game.png');
 }
 
+/* set up the canvas */
 function setup() {
   /*set up a black canvas to cover the full display height and width*/
   createCanvas(windowWidth, windowHeight);
   background(0);
-
-  /*Set our unicorn character */
-  unicornCharacter = new Unicorn();
+  /*Set our main character */
+  mainCharacter = new Main_Character();
 
   /*Set up our juggle array*/
   init();
@@ -60,6 +60,7 @@ function addToArray() {
   console.log('new item array:', itemArray);
 }
 
+
 function draw() {
   /*clear canvas before each new drawing*/
   clear();
@@ -73,8 +74,7 @@ function draw() {
      }
      itemArray[i].update(i);
   }
-
-  unicornCharacter.update();
+  mainCharacter.update();
 }
 
 /* images won't load so I run http-server.  But now images seem to load but nothing will display on the canvas*/
