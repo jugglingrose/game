@@ -28,22 +28,18 @@ function setup() {
 }
 
 /* Item Class */
-function Item(img, y, x, objectHeight, objectWidth) {
+function Item(img, y, randomX, objectHeight, objectWidth) {
   this.img = img;
-  //this.randomX = randomX;
-  this.x = x;
+  this.randomX = randomX;
   this.y = y;
   this.objectHeight = objectHeight;
   this.objectWidth = objectWidth;
-  /*select random number along x-axis */
-  //this.randomX = random(1, width-20);
 
   this.draw = function(){
-     
-    image(this.img, this.x, this.y, this.objectWidth, this.objectHeight);//
+    image(this.img, this.randomX, this.y, this.objectWidth, this.objectHeight);//
   }
   this.update = function(){
-    this.y = this.y + 5;
+    this.y = this.y + 1;
     this.draw();
   }
 }
@@ -75,11 +71,14 @@ function init() {
   itemArray = [];
   /* y-axis */
   var y = 15;
-  var x = 30;
+  //var x = 30;
 
   /*produce an array of Items*/
   for(var i = 0; i < 10; i++){
-    
+
+    /*select random number along x-axis */
+    var randomX = random(1, width-20);
+
     /*call imgSelect() to select a random image*/
     var selectedimg = imgSelect();
 
@@ -93,18 +92,20 @@ function init() {
     }
 
     /*Push items into array */
-    itemArray.push(new Item(selectedimg, y, x,objectHeight, objectWidth) );
+    itemArray.push(new Item(selectedimg, y, randomX,objectHeight, objectWidth) );
   }
   console.log(itemArray);
 }
 
-/*
+
 function draw() {
+  /*clear canvas before each new drawing*/
+  clear();
+  /*draw each item of the array*/
   for(var i=0; i < itemArray.length; i++) {
-     console.log(itemArray[i]);
+     //console.log(itemArray[i]);
      itemArray[i].update(i);
   }
 }
-*/
 
 /* images won't load so I run http-server.  But now images seem to load but nothing will display on the canvas*/
