@@ -1,4 +1,3 @@
-
 /*Images*/
 var blue_club;
 var purple_ball;
@@ -7,18 +6,12 @@ var red_ball;
 var fire_torch;
 var unicorn;
 
-var randomX;
-var y;
 var r;
-var ball;
-var img;
-var objectHeight;
-var objectWidth;
 var itemArray;
-var x;
 
 /*preload our images*/
 function preload() {
+  console.log('preload');
   blue_club = loadImage('/assets/blue_club.png');
   pink_club = loadImage('/assets/pink_juggle_club.png');
   red_ball = loadImage('/assets/red_ball.png');
@@ -31,6 +24,7 @@ function setup() {
   background(0);
   /*Every few seconds we want a new object to appear at the top of the screen*/
   //setInterval(init, 3000);
+  init();
 }
 
 /* Item Class */
@@ -45,8 +39,8 @@ function Item(img, y, x, objectHeight, objectWidth) {
   //this.randomX = random(1, width-20);
 
   this.draw = function(){
-    console.log("this is the img:", this.img);   
-    //image(this.img, this.x, this.y, this.objectWidth, this.objectHeight);//
+     
+    image(this.img, this.x, this.y, this.objectWidth, this.objectHeight);//
   }
   this.update = function(){
     this.y = this.y + 5;
@@ -59,26 +53,19 @@ function imgSelect(){
   console.log('img select called');
   /*select a random number from 0 to 4*/
   r = Math.floor(Math.random() * 4);
-
    switch( r ){
     case 0:
-      img = "purple_ball";
-      console.log("img select:", img);
-      return img;
+      console.log('purple');
+      return purple_ball;
     case 1:
       console.log('blue');
-      img = "blue_club";
-      console.log("img select:", img);
-      return img;
+      return blue_club;
     case 2:
       console.log('red');
-      img = "red_ball";
-      console.log("img select:", img);
-      return img;
+      return red_ball;
     case 3:
-      img = "pink_club";
-      console.log("img select:", img);
-      return img;
+      console.log('pink');
+      return pink_club;
   }
 }
 
@@ -87,31 +74,37 @@ function init() {
   /*initialize variables*/
   itemArray = [];
   /* y-axis */
-  y = 15;
-  x = 30;
-
-  if(img === "red_ball" || img === "purple_ball"){
-    objectHeight = 25;
-    objectWidth = 25;
-  }else{
-    objectHeight = 50;
-    objectWidth = 15;
-  }
+  var y = 15;
+  var x = 30;
 
   /*produce an array of Items*/
   for(var i = 0; i < 10; i++){
-    img = imgSelect();
-    itemArray.push(new Item(img, y, x,objectHeight, objectWidth) );
+    
+    /*call imgSelect() to select a random image*/
+    var selectedimg = imgSelect();
+
+    /*set height and width of objects depending on the type of object selected*/
+    if(selectedimg === red_ball || selectedimg === purple_ball){
+      var objectHeight = 25;
+      var objectWidth = 25;
+    }else{
+      var objectHeight = 50;
+      var objectWidth = 15;
+    }
+
+    /*Push items into array */
+    itemArray.push(new Item(selectedimg, y, x,objectHeight, objectWidth) );
   }
   console.log(itemArray);
 }
 
+/*
 function draw() {
   for(var i=0; i < itemArray.length; i++) {
      console.log(itemArray[i]);
      itemArray[i].update(i);
   }
 }
+*/
 
-init();
 /* images won't load so I run http-server.  But now images seem to load but nothing will display on the canvas*/
