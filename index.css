@@ -1,0 +1,18 @@
+#mainSketch{
+  position: relative;
+  z-index: 1;
+}
+
+#counter {
+  position: absolute;
+  z-index: 10;
+  top: 20;
+  left: 10;
+}
+
+#lives {
+  position: absolute;
+  z-index: 10;
+  top: 20;
+  right: 10;
+}

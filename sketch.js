@@ -29,8 +29,10 @@ function preload() {
 /* set up the canvas */
 function setup() {
   /*set up a black canvas to cover the full display height and width*/
-  createCanvas(windowWidth, windowHeight);
-  background(0);
+  var mainCanvas = createCanvas(windowWidth, windowHeight);
+  mainCanvas.background(0);
+  mainCanvas.parent('mainSketch');
+
   /*Set our main character */
   mainCharacter = new Main_Character();
 
