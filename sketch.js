@@ -60,7 +60,6 @@ function addToArray() {
   console.log('new item array:', itemArray);
 }
 
-
 function draw() {
   /*clear canvas before each new drawing*/
   clear();

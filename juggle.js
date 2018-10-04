@@ -1,16 +1,29 @@
 /* Juggle Class */
 function Juggle(img, y, randomX, objectHeight, objectWidth) {
   this.img = img;
-  this.randomX = randomX;
+  this.x = randomX;
   this.y = y;
   this.objectHeight = objectHeight;
   this.objectWidth = objectWidth;
 
   this.draw = function(){
-    image(this.img, this.randomX, this.y, this.objectWidth, this.objectHeight);//
+    image(this.img, this.x, this.y, this.objectWidth, this.objectHeight);//
   }
-  this.update = function(){
+
+  this.update = function(i){
+    var index = i;
+    /* each time we call update we want the juggle object to travel further down the y-axis*/
     this.y = this.y + 1;
+    /* set var x so we write less code */
+    var x = this.x + this.objectWidth;
+    /* if our juggle object contacts our main character.  We want to add a point and then remove the 
+    juggle object from the array/screen */ 
+    if(this.y >= (windowHeight - mainCharacter.objectHeight) && this.y <= windowHeight && 
+    x >= mainCharacter.x && x <= (mainCharacter.x + mainCharacter.objectWidth) ){
+      console.log("one point");
+      itemArray.splice(index, 1);
+    }
+    /* we want to call draw after each update */
     this.draw();
   }
 }

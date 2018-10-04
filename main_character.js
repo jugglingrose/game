@@ -16,8 +16,6 @@ function Main_Character(){
   }
 
   this.dir = function(x) {
-    console.log("x", x);
-    console.log("key pressed");
     this.xspeed = x;
   }
 }
