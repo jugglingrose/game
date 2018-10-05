@@ -5,9 +5,11 @@ function Main_Character(){
   this.x = width / 2 - (this.objectWidth / 2);
   this.y = height - this.objectHeight;
   this.xspeed = 0;
+  this.cy = this.y + (this.objectHeight/2);
 
   this.update = function() {
     this.x = this.x + this.xspeed;
+    this.cx = this.x + (this.objectWidth/2);
     this.draw();
   }
 

@@ -1,5 +1,5 @@
 /*This is the primary js file.  Also refer to juggle.js and unicorn.js*/
-/*Images*/
+/*Variables*/
 var blue_club;
 var purple_ball;
 var pink_club;
@@ -7,14 +7,20 @@ var red_ball;
 var fire_torch;
 var mainCharacter;
 var unicorn;
+var rainbow;
+var dog;
+var points = 0;
 
 var r;
-var itemArray;
+var juggleArray;
+var livesArray;
 var randomX;
 var y;
 var objectHeight;
 var objectWidth;
 var selectedimg;
+
+p5.disableFriendlyErrors = true;
 
 /*preload our images*/
 function preload() {
@@ -24,6 +30,8 @@ function preload() {
   red_ball = loadImage('/assets/red_ball.png');
   purple_ball = loadImage('/assets/purple_ball.png');
   unicorn = loadImage('/assets/unciron_game.png');
+  rainbow = loadImage('/assets/rainbow2.svg');
+  dog = loadImage('/assets/dino_dog.png');
 }
 
 /* set up the canvas */
@@ -36,46 +44,62 @@ function setup() {
   /*Set our main character */
   mainCharacter = new Main_Character();
 
-  /*Set up our juggle array*/
+  /*initialize arrays*/
   init();
   /*Every few seconds we want push a new item to our array by calling the addToArray function*/
-  setInterval(addToArray, 3000);
+  var intervalA = setInterval(addToArray, 4000);
+  
+  //clearInterval(intervalA, 20000);
+  //setTimeout(addToArray, 1000);
 }
 
-/* initialize the first item of the itemArray */
+/* initialize the first item of the juggleArray and set three rainbows into our lives array */
 function init() {
-  itemArray = [];
+  juggleArray = [];
   for(var i =0; i < 1; i ++){
     setVariables();
-    itemArray.push(new Juggle(selectedimg, y, randomX,objectHeight, objectWidth))
+    juggleArray.push(new Juggle(selectedimg, y, randomX,objectHeight, objectWidth))
   }
-  console.log(itemArray);
+
+  livesArray = [];
+  for(var i=0; i < 3; i++) {
+    livesArray.push(rainbow);
+  }
+
 }
 
 /*After we have our initial array.  A setInterval will call this function and we will push
-a new item to our itemArray every few seconds*/
+a new juggle item to our juggleArray every few seconds*/
 function addToArray() {
   for(var i =0; i < 1; i ++){
     setVariables();
-    itemArray.push(new Juggle(selectedimg, y, randomX,objectHeight, objectWidth))
+    juggleArray.push(new Juggle(selectedimg, y, randomX,objectHeight, objectWidth))
   }
-  console.log('new item array:', itemArray);
+  console.log('new item array:', juggleArray);
 }
 
 function draw() {
   /*clear canvas before each new drawing*/
   clear();
-  /*draw each item of the array*/
-  for(var i=0; i < itemArray.length; i++) {
+  /* draw each rainbow life */
+  var x = windowWidth - 20;
+  for(var i = 0; i < livesArray.length; i ++) {
+    x = x - 65;
+    image(livesArray[i], x, 15, 60, 50);
+  }
+
+  /*draw each item of the juggle array*/
+  for(var i=0; i < juggleArray.length; i++) {
      /*when the y-axis of an item hits the bottom of the screen, the item 
      is removed from the array*/
-     if(itemArray[i].y === displayHeight){
+     /* this statement isn't being called ? */
+     if(juggleArray[i].y === windowHeight){
        console.log("y = displayHeight");
-       itemArray.splice(i, 1);
+       juggleArray.splice(i, 1);
      }
-     itemArray[i].update(i);
+     juggleArray[i].update(i);
   }
   mainCharacter.update();
 }
 
-/* images won't load so I run http-server.  But now images seem to load but nothing will display on the canvas*/
+/* images won't load so I run http-server. */
