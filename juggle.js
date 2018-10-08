@@ -14,6 +14,7 @@ function Juggle(img, y, randomX, objectHeight, objectWidth) {
   }
 
   this.update = function(i){
+    
     var index = i;
     /* each time we call update we want the juggle object to travel further down the y-axis*/
     this.y = this.y + 3;
@@ -26,42 +27,18 @@ function Juggle(img, y, randomX, objectHeight, objectWidth) {
     
     if(this.img === dog) {
       if(squareRT < 110){
-        console.log('touch spike');
-        points--;
-        document.getElementById("counter").innerHTML = points;
+        /*points--;
+        document.getElementById("counter").innerHTML = points;*/
+        livesArray.splice(0,1);
         juggleArray.splice(index, 1);
       }
     }else{
       if(squareRT < 40){
-        console.log('touch');
         points++;
         document.getElementById("counter").innerHTML = points;
         juggleArray.splice(index, 1);
       }
     }
-
-    /* set var x2 so we write less code */
-    /*var x2 = this.x + this.objectWidth;
-    var charX = mainCharacter.x;
-
-    if our juggle object contacts our main character.  We want to add a point if it's a club or ball.
-    We want to remove a life if it's wind or dog.  Then remove the juggle object from the array/screen */ 
-    /*if(this.y >= (windowHeight - mainCharacter.objectHeight) && this.y <= windowHeight ) {
-      if( (this.x >= charX && this.x <= (charX + mainCharacter.objectWidth) ) ||
-      (x2 <= (charX + mainCharacter.objectWidth) && x2 >= charX) ){
-        if(this.img === dog){
-          console.log('ouch');
-          points--;
-          document.getElementById("counter").innerHTML = points;
-          juggleArray.splice(index, 1);
-        }else{
-          points++;
-          document.getElementById("counter").innerHTML = points;
-          console.log("one point");
-          juggleArray.splice(index, 1);
-        }
-      }
-    }*/
     /* we want to call draw after each update */
     this.draw();
   }
@@ -86,8 +63,7 @@ function imgSelect(){
       console.log('pink');
       return pink_club;
     case 4:
-      return dog;
-   
+      return dog;  
   }
 }
 

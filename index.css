@@ -1,3 +1,21 @@
+.bg{
+  background-image: url('/assets/bubble_gum_bg2.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 22%;
+  margin: 0;
+  padding: 0; 
+}
+
+.end{
+  background-image: url('/assets/game_over_page.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 22%;
+  margin: 0;
+  padding: 0; 
+}
+
 #mainSketch{
   position: relative;
   z-index: 1;
@@ -15,4 +33,25 @@
   z-index: 10;
   top: 20;
   right: 10;
+}
+
+#restart {
+  position: absolute;
+  z-index: 10;
+  top: 70%;
+  right: 47%;
+}
+
+#restart button{
+  width: 150px;
+  height: 70px;
+  background-color: white;
+}
+
+.nodisplay{
+  display: none;
+}
+
+.display{
+  display: block;
 }
