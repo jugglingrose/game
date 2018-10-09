@@ -69,6 +69,7 @@ function imgSelect(){
 
 /*this function will set our variables for each item in our array*/
 function setVariables() {
+  console.log("set variables function called inside juggle.js");
   /* y-axis */
   y = 15;
 

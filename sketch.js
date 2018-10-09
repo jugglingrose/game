@@ -9,7 +9,7 @@ var mainCharacter;
 var unicorn;
 var rainbow;
 var dog;
-//var bg;
+
 
 var points = 0;
 var r;
@@ -24,6 +24,7 @@ var intervalA;
 var intervalB;
 var intervalC;
 
+
 p5.disableFriendlyErrors = true;
 
 /*preload our images*/
@@ -36,13 +37,11 @@ function preload() {
   unicorn = loadImage('/assets/unciron_game.png');
   rainbow = loadImage('/assets/rainbow2.svg');
   dog = loadImage('/assets/dino_dog.png');
- // bg = loadImage('/assets/bubble_gum_bg.svg');
 }
 
 /* set up the canvas */
 function setup() {
   console.log('set up called');
-  /*set up a black canvas to cover the full display height and width*/
   var mainCanvas = createCanvas(windowWidth, windowHeight);
   mainCanvas.background(0);
   mainCanvas.parent('mainSketch');
@@ -52,16 +51,6 @@ function setup() {
 
   /*initialize arrays*/
   init();
-  
-  /*Every few seconds we want push a new item to our array by calling the addToArray function*/
-  intervalA = setInterval(addToArray, 4000);
-  /*after 20 seconds we want to speed up the game*/
-  setTimeout(() => { clearInterval(intervalA)}, 20000);
-  setTimeout(() => { intervalB = setInterval(addToArray, 1000)}, 20000);
-  setTimeout(() => { clearInterval(intervalB)}, 30000);
-  setTimeout(() => { intervalC = setInterval(addToArray, 500)}, 30000);
-  //setTimeout(() => { clearInterval(intervalC)}, 40000);
- 
 }
 
 /* initialize the first item of the juggleArray and set three rainbows into our lives array */
@@ -80,8 +69,9 @@ function init() {
 }
 
 /*After we have our initial array.  A setInterval will call this function and we will push
-a new juggle item to our juggleArray every few seconds*/
+a new juggle item to our juggleArray every 4000 miliseconds, then 1000 miliseconds, then 500 miliseconds*/
 function addToArray() {
+  console.log("add to array called");
   for(var i =0; i < 1; i ++){
     setVariables();
     juggleArray.push(new Juggle(selectedimg, y, randomX,objectHeight, objectWidth))
@@ -89,27 +79,66 @@ function addToArray() {
   console.log('new item array:', juggleArray);
 }
 
+function resetSketch(){
+  console.log('reset sketch');
+  /*var restart = select('#restart');
+  restart.removeClass('display');
+  restart.addClass('nodisplay');
+  var a = select('.end');
+  a.removeClass('end');
+  a.addClass('bg');*/
+    
+  init();
+}
+
+var counter = 0;
+var speedCounter = 0;
+
 function draw() {
+
+  /*Create intervals to set how frequently an array object should appear on the screen.  Speed up
+  as the game progresses */
+  counter++;
+  speedCounter++;
+  if(speedCounter >=1000){
+    while(counter===30){
+      addToArray();
+      counter=0;
+    }
+  }
+  if(speedCounter >= 600){
+    while(counter === 60){
+      addToArray();
+      counter = 0;
+    }
+  }
+  if(speedCounter < 600){
+    while(counter === 90){
+      addToArray();
+      counter = 0;
+    }
+  }
+  
   /*clear canvas before each new drawing*/
   clear();
   
   /*If no lives remain, end game.  Change the background image to display the game over background.
-  display the restart button.  clearInterval. */
+  Display the restart button. */
   if(livesArray.length === 0){
-    console.log("game over");
-    var a = select('.bg');
+    console.log('game over');
     var restart = select('#restart');
     restart.removeClass('nodisplay');
     restart.addClass('display');
+    var a = select('.bg');
     a.removeClass('bg');
     a.addClass('end');
-    clearInterval(intervalA);
-    clearInterval(intervalB);
-    clearInterval(intervalC);
-    noLoop();
-    remove();
-  }else{
-      /* draw each rainbow life */
+    var button = select('#restartButton');
+    button.mousePressed(resetSketch);
+  }
+
+  /* If lives is not equal to zero, activate our livesArray and juggle Array.  */
+  else{
+    /* draw each rainbow life */
     var x = windowWidth - 20;
     for(var i = 0; i < livesArray.length; i ++) {
       x = x - 65;
@@ -125,14 +154,10 @@ function draw() {
       }else{
         juggleArray[i].update(i);
       }
-      
     }
     /* Update the main Character */
     mainCharacter.update();
-
   }
-
- 
 }
 
 /* images won't load so I run http-server. */
