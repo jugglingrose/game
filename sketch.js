@@ -10,7 +10,6 @@ var unicorn;
 var rainbow;
 var dog;
 
-
 var points = 0;
 var r;
 var juggleArray;
@@ -20,10 +19,6 @@ var y;
 var objectHeight;
 var objectWidth;
 var selectedimg;
-var intervalA;
-var intervalB;
-var intervalC;
-
 
 p5.disableFriendlyErrors = true;
 
@@ -55,21 +50,30 @@ function setup() {
 
 /* initialize the first item of the juggleArray and set three rainbows into our lives array */
 function init() {
-  console.log('init called');
+
+  //Points start as zero//
+  points = 0;
+  document.getElementById("counter").innerHTML = points;
+
+  //set our juggle array//
   juggleArray = [];
   for(var i =0; i < 1; i ++){
     setVariables();
     juggleArray.push(new Juggle(selectedimg, y, randomX,objectHeight, objectWidth))
   }
 
+  //set our lives array//
   livesArray = [];
   for(var i=0; i < 1; i++) {
     livesArray.push(rainbow);
   }
+  console.log("juggle array", juggleArray);
+  
 }
 
-/*After we have our initial array.  A setInterval will call this function and we will push
-a new juggle item to our juggleArray every 4000 miliseconds, then 1000 miliseconds, then 500 miliseconds*/
+/*After we have our initial array.  An interval function will call this function and we will push
+a new juggle item to our juggleArray every x miliseconds.  This way our array items don't display
+on screen all at one time*/
 function addToArray() {
   console.log("add to array called");
   for(var i =0; i < 1; i ++){
@@ -80,39 +84,40 @@ function addToArray() {
 }
 
 function resetSketch(){
-  console.log('reset sketch');
-  /*var restart = select('#restart');
+  var restart = select('#restart');
   restart.removeClass('display');
   restart.addClass('nodisplay');
   var a = select('.end');
   a.removeClass('end');
-  a.addClass('bg');*/
-    
+  a.addClass('bg');
+  gameCounter = 0;
+  counter = 0;
   init();
+  loop();
 }
 
 var counter = 0;
-var speedCounter = 0;
+var gameCounter = 0;
 
 function draw() {
-
+  
   /*Create intervals to set how frequently an array object should appear on the screen.  Speed up
   as the game progresses */
   counter++;
-  speedCounter++;
-  if(speedCounter >=1000){
+  gameCounter++;
+  if(gameCounter >= 2500){
     while(counter===30){
       addToArray();
       counter=0;
     }
   }
-  if(speedCounter >= 600){
+  if(gameCounter >= 1500){
     while(counter === 60){
       addToArray();
       counter = 0;
     }
   }
-  if(speedCounter < 600){
+  if(gameCounter < 1500){
     while(counter === 90){
       addToArray();
       counter = 0;
@@ -123,7 +128,8 @@ function draw() {
   clear();
   
   /*If no lives remain, end game.  Change the background image to display the game over background.
-  Display the restart button. */
+  Display the restart button. Stop the draw loop.  Call restart function if user clicks the restart 
+  button */
   if(livesArray.length === 0){
     console.log('game over');
     var restart = select('#restart');
@@ -134,9 +140,10 @@ function draw() {
     a.addClass('end');
     var button = select('#restartButton');
     button.mousePressed(resetSketch);
+    noLoop();
   }
 
-  /* If lives is not equal to zero, activate our livesArray and juggle Array.  */
+  /* If lives is not equal to zero, cycle through our livesArray and juggle Array.  */
   else{
     /* draw each rainbow life */
     var x = windowWidth - 20;
@@ -160,4 +167,4 @@ function draw() {
   }
 }
 
-/* images won't load so I run http-server. */
+/* run http-server. */
