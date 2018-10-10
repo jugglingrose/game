@@ -48,7 +48,7 @@ function Juggle(img, y, randomX, objectHeight, objectWidth) {
 function imgSelect(){
   console.log('img select called');
   /*select a random number from 0 to 4*/
-  r = Math.floor(Math.random() * 5);
+  var r = Math.floor(Math.random() * 5);
    switch( r ){
     case 0:
       console.log('purple');

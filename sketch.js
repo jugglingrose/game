@@ -9,12 +9,14 @@ var mainCharacter;
 var unicorn;
 var rainbow;
 var dog;
+var level;
 
 
 var points = 0;
-var r;
+//var r;
 var juggleArray;
 var livesArray;
+var glitterArray;
 var randomX;
 var y;
 var objectHeight;
@@ -45,6 +47,10 @@ function setup() {
   /*Set our main character */
   mainCharacter = new Main_Character();
 
+  /*Set Level*/
+  level = 1;
+  console.log("this is level", level);
+
   /*Call init function to initialize arrays*/
   init();
 
@@ -61,8 +67,6 @@ function setup() {
     instruction.addClass('nodisplay');
     loop();
   });
-  
-
 }
 
 /* initialize the first item of the juggleArray and set three rainbows into our lives array */
@@ -86,6 +90,8 @@ function init() {
   }
   console.log("juggle array", juggleArray);
 
+  //initialize our glitter array//
+  glitterArray = [];
 }
 
 /*After we have our initial array.  An interval function will call this function and we will push
@@ -93,11 +99,21 @@ a new juggle item to our juggleArray every x miliseconds.  This way our array it
 on screen all at one time*/
 function addToArray() {
   console.log("add to array called");
-  for(var i =0; i < 1; i ++){
-    setVariables();
-    juggleArray.push(new Juggle(selectedimg, y, randomX,objectHeight, objectWidth))
+  if(level === 1){
+    for(var i =0; i < 1; i ++){
+      setVariables();
+      juggleArray.push(new Juggle(selectedimg, y, randomX,objectHeight, objectWidth))
+    }
   }
-  console.log('new item array:', juggleArray);
+
+  if(level === 2){
+    console.log('glitter activated');
+    for(var i=0; i< 1; i++){
+      //var color = colorSelect();
+      var x = random(1, width-20);
+      glitterArray.push(new Glitter(x))
+    }
+  }
 }
 
 function resetSketch(){
@@ -116,15 +132,16 @@ function resetSketch(){
 var counter = 0;
 var gameCounter = 0;
 
-function draw() {
-  
+function draw() {  
   /*Create intervals to set how frequently an array object should appear on the screen.  Speed up
   as the game progresses */
   counter++;
   gameCounter++;
-  if(gameCounter === 3500){
-    console.log("level 2!");
+  if(gameCounter === 500){
     noLoop();
+    level = 2;
+    gameCounter = 0;
+    loop();
   }
   if(gameCounter >= 2500){
     while(counter===30){
@@ -172,20 +189,28 @@ function draw() {
       x = x - 65;
       image(livesArray[i], x, 15, 60, 50);
     }
-
-    /*draw each item of the juggle array*/
-    for(var i=0; i < juggleArray.length; i++) {
-      /*when the y-axis of an item hits the bottom of the screen, the item 
-      is removed from the array*/
-      if(juggleArray[i].y > height){
-        juggleArray.splice(i, 1);
-      }else{
-        juggleArray[i].update(i);
+    if(level === 2){
+      console.log('glitter update called');
+      for(var i=0; i < glitterArray.length; i++) {
+        glitterArray[i].update(i);
       }
     }
-    /* Update the main Character */
-    mainCharacter.update();
+    if(level === 1){
+      /*draw each item of the juggle array*/
+      for(var i=0; i < juggleArray.length; i++) {
+        /*when the y-axis of an item hits the bottom of the screen, the item 
+        is removed from the array*/
+        if(juggleArray[i].y > height){
+          juggleArray.splice(i, 1);
+        }else{
+          juggleArray[i].update(i);
+        }
+      }
+    }
   }
+
+   /* Update the main Character */
+   mainCharacter.update();
 }
 
 /* run http-server. */
