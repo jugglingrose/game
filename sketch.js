@@ -10,6 +10,7 @@ var unicorn;
 var rainbow;
 var dog;
 
+
 var points = 0;
 var r;
 var juggleArray;
@@ -25,7 +26,7 @@ p5.disableFriendlyErrors = true;
 /*preload our images*/
 function preload() {
   console.log('preload');
-  blue_club = loadImage('/assets/blue_club.png');
+  blue_club = loadImage('/assets/blue.png');
   pink_club = loadImage('/assets/pink_juggle_club.png');
   red_ball = loadImage('/assets/red_ball.png');
   purple_ball = loadImage('/assets/purple_ball.png');
@@ -44,8 +45,24 @@ function setup() {
   /*Set our main character */
   mainCharacter = new Main_Character();
 
-  /*initialize arrays*/
+  /*Call init function to initialize arrays*/
   init();
+
+  /*display instructions before game begins*/
+  var instruction = select('#instructions');
+  instruction.removeClass('nodisplay');
+  instruction.addClass('display');
+  noLoop();
+  /*do no proceed to draw loop (game start) until user has clicked the start button*/
+  var startButton = select('#start');
+  startButton.mousePressed(() => {
+    console.log('click');
+    instruction.removeClass('display');
+    instruction.addClass('nodisplay');
+    loop();
+  });
+  
+
 }
 
 /* initialize the first item of the juggleArray and set three rainbows into our lives array */
@@ -55,20 +72,20 @@ function init() {
   points = 0;
   document.getElementById("counter").innerHTML = points;
 
-  //set our juggle array//
+  //initialize our juggle array//
   juggleArray = [];
   for(var i =0; i < 1; i ++){
     setVariables();
     juggleArray.push(new Juggle(selectedimg, y, randomX,objectHeight, objectWidth))
   }
 
-  //set our lives array//
+  //initialize our lives array//
   livesArray = [];
   for(var i=0; i < 1; i++) {
     livesArray.push(rainbow);
   }
   console.log("juggle array", juggleArray);
-  
+
 }
 
 /*After we have our initial array.  An interval function will call this function and we will push
@@ -105,6 +122,10 @@ function draw() {
   as the game progresses */
   counter++;
   gameCounter++;
+  if(gameCounter === 3500){
+    console.log("level 2!");
+    noLoop();
+  }
   if(gameCounter >= 2500){
     while(counter===30){
       addToArray();

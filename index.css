@@ -16,6 +16,31 @@
   padding: 0; 
 }
 
+/* Instruction Div */
+#instructions{
+  position: absolute;
+  z-index: 10;
+  top: 19%;
+  left: 30%;
+  height: 650px;
+  width: 745px;
+}
+
+/* Level One Instruction Display */
+.levelOne{
+  background-image: url('/assets/level_a_directions.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* start button to start the game */
+#start{
+  position: absolute;
+  top: 92%;
+  right: 45%;
+  background-color: white;
+}
+
 #mainSketch{
   position: relative;
   z-index: 1;
@@ -38,13 +63,14 @@
 #restart {
   position: absolute;
   z-index: 10;
-  top: 70%;
+  top: 80%;
   right: 47%;
 }
 
+/* Restart Button display when game ends */
 #restartButton{
-  width: 150px;
-  height: 70px;
+  width: 120px;
+  height: 50px;
   background-color: white;
 }
 
