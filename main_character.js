@@ -31,7 +31,6 @@ function keyReleased() {
 }
 
 function keyPressed() {
-  console.log("key is pressed");
   if(keyCode === RIGHT_ARROW){
     mainCharacter.dir(6);
   }else if(keyCode === LEFT_ARROW){

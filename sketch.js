@@ -4,16 +4,18 @@ var blue_club;
 var purple_ball;
 var pink_club;
 var red_ball;
-var fire_torch;
+var fire;
 var mainCharacter;
 var unicorn;
 var rainbow;
 var dog;
 var level;
+var pink_glitter;
+var star;
+var orange_feather;
 
 
 var points = 0;
-//var r;
 var juggleArray;
 var livesArray;
 var glitterArray;
@@ -27,7 +29,6 @@ p5.disableFriendlyErrors = true;
 
 /*preload our images*/
 function preload() {
-  console.log('preload');
   blue_club = loadImage('/assets/blue.png');
   pink_club = loadImage('/assets/pink_juggle_club.png');
   red_ball = loadImage('/assets/red_ball.png');
@@ -35,11 +36,14 @@ function preload() {
   unicorn = loadImage('/assets/unciron_game.png');
   rainbow = loadImage('/assets/rainbow2.svg');
   dog = loadImage('/assets/dino_dog.png');
+  star = loadImage('/assets/star_glitter.png');
+  pink_glitter = loadImage('/assets/pink_glitter.png');
+  orange_feather = loadImage('/assets/orange_feather.png');
+  fire = loadImage('/assets/fire_torch.png');
 }
 
 /* set up the canvas */
 function setup() {
-  console.log('set up called');
   var mainCanvas = createCanvas(windowWidth, windowHeight);
   mainCanvas.background(0);
   mainCanvas.parent('mainSketch');
@@ -69,6 +73,12 @@ function setup() {
   });
 }
 
+//Change canvas height and update the y coordinate for the rectangle object when resizing screen
+window.addEventListener('resize', function(){
+  console.log("window height changed");
+  resizeCanvas(windowWidth, windowHeight);
+});
+
 /* initialize the first item of the juggleArray and set three rainbows into our lives array */
 function init() {
 
@@ -85,10 +95,9 @@ function init() {
 
   //initialize our lives array//
   livesArray = [];
-  for(var i=0; i < 1; i++) {
+  for(var i=0; i < 2; i++) {
     livesArray.push(rainbow);
   }
-  console.log("juggle array", juggleArray);
 
   //initialize our glitter array//
   glitterArray = [];
@@ -98,22 +107,27 @@ function init() {
 a new juggle item to our juggleArray every x miliseconds.  This way our array items don't display
 on screen all at one time*/
 function addToArray() {
-  console.log("add to array called");
-  if(level === 1){
+    
+  if(gameCounter < 1000){
     for(var i =0; i < 1; i ++){
       setVariables();
-      juggleArray.push(new Juggle(selectedimg, y, randomX,objectHeight, objectWidth))
+      juggleArray.push(new Juggle(selectedimg, y, randomX, objectHeight, objectWidth))
     }
+  }else{
+    for(var i =0; i < 1; i ++){
+      setVariables();
+      juggleArray.push(new Juggle(selectedimg, y, randomX, objectHeight, objectWidth))
   }
+}
 
-  if(level === 2){
-    console.log('glitter activated');
-    for(var i=0; i< 1; i++){
-      //var color = colorSelect();
+
+  /*if(level === 2){
+    for(var i=0; i< 3; i++){
+      var img = colorSelect();
       var x = random(1, width-20);
-      glitterArray.push(new Glitter(x))
+      glitterArray.push(new Glitter(x, img))
     }
-  }
+  }*/
 }
 
 function resetSketch(){
@@ -137,25 +151,34 @@ function draw() {
   as the game progresses */
   counter++;
   gameCounter++;
-  if(gameCounter === 500){
-    noLoop();
-    level = 2;
-    gameCounter = 0;
-    loop();
+  if(gameCounter === 5000){
+    console.log("game over");
   }
-  if(gameCounter >= 2500){
+  if(gameCounter === 4000){
+    while(counter === 5){
+      addToArray();
+      counter = 0;
+    }
+  }
+  if(gameCounter >= 3000){
+    while(counter === 10){
+      addToArray();
+      counter = 0;
+    }
+  }
+  if(gameCounter >= 2000){
     while(counter===30){
       addToArray();
       counter=0;
     }
   }
-  if(gameCounter >= 1500){
+  if(gameCounter >= 1000){
     while(counter === 60){
       addToArray();
       counter = 0;
     }
   }
-  if(gameCounter < 1500){
+  if(gameCounter < 1000){
     while(counter === 90){
       addToArray();
       counter = 0;
@@ -189,12 +212,17 @@ function draw() {
       x = x - 65;
       image(livesArray[i], x, 15, 60, 50);
     }
-    if(level === 2){
-      console.log('glitter update called');
+
+    /*if(level === 2){
       for(var i=0; i < glitterArray.length; i++) {
-        glitterArray[i].update(i);
+        if(glitterArray[i].y > height){
+          glitterArray.splice(i,1);
+        }else{
+          glitterArray[i].update(i);
+        }
       }
-    }
+    }*/
+
     if(level === 1){
       /*draw each item of the juggle array*/
       for(var i=0; i < juggleArray.length; i++) {

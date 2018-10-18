@@ -1,83 +1,103 @@
-.bg{
-  background-image: url('/assets/bubble_gum_bg2.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 22%;
-  margin: 0;
-  padding: 0; 
-}
 
-.end{
-  background-image: url('/assets/game_over_page.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 22%;
-  margin: 0;
-  padding: 0; 
-}
+  .bg{
+    background-image: url('/assets/bubble_gum_bg.png');
+    background-repeat: no-repeat;
+    background-position: 49% 46%;
+    margin: 0;
+    padding: 0; 
+  }
+  
+  .end{
+    background-image: url('/assets/game_over_page.svg');
+    background-repeat: no-repeat;
+    background-position: 49% 46%;;
+    background-size: cover;
+    margin: 0;
+    padding: 0; 
+  }
+  
+  /* Instruction Div */
+  #instructions{
+    position: absolute;
+    z-index: 10;
+    top: 33%;
+    left: 13%;
+    height: 650px;
+    width: 745px;
+  }
+  
+  /* Level One Instruction Display */
+  .levelOne{
+    background-image: url('/assets/level_a_directions.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  /* start button to start the game */
+  #start{
+    position: absolute;
+    top: 92%;
+    right: 45%;
+    background-color: white;
+  }
+  
+  #mainSketch{
+    position: relative;
+    z-index: 1;
+  }
+  
+  #counter {
+    position: absolute;
+    z-index: 10;
+    top: 20;
+    left: 10;
+  }
+  
+  #lives {
+    position: absolute;
+    z-index: 10;
+    top: 20;
+    right: 10;
+  }
+  
+  #restart {
+    position: absolute;
+    z-index: 10;
+    top: 80%;
+    right: 47%;
+  }
+  
+  /* Restart Button display when game ends */
+  #restartButton{
+    width: 120px;
+    height: 50px;
+    background-color: white;
+  }
+  
+  .nodisplay{
+    display: none;
+  }
+  
+  .display{
+    display: block;
+  }
 
-/* Instruction Div */
-#instructions{
-  position: absolute;
-  z-index: 10;
-  top: 19%;
-  left: 30%;
-  height: 650px;
-  width: 745px;
-}
+@media only screen and (min-width: 1000px){
+  .bg{
+    background-size: cover;
+    background-position: 22%;
+  } 
+  .end{
+    background-image: url('/assets/game_over_page.svg');
+    /*background-size: cover;*/
+    background-position: 22%;
+  }
 
-/* Level One Instruction Display */
-.levelOne{
-  background-image: url('/assets/level_a_directions.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-/* start button to start the game */
-#start{
-  position: absolute;
-  top: 92%;
-  right: 45%;
-  background-color: white;
-}
-
-#mainSketch{
-  position: relative;
-  z-index: 1;
-}
-
-#counter {
-  position: absolute;
-  z-index: 10;
-  top: 20;
-  left: 10;
-}
-
-#lives {
-  position: absolute;
-  z-index: 10;
-  top: 20;
-  right: 10;
-}
-
-#restart {
-  position: absolute;
-  z-index: 10;
-  top: 80%;
-  right: 47%;
-}
-
-/* Restart Button display when game ends */
-#restartButton{
-  width: 120px;
-  height: 50px;
-  background-color: white;
-}
-
-.nodisplay{
-  display: none;
-}
-
-.display{
-  display: block;
+  /* Instruction Div */
+  #instructions{
+    top: 19%;
+    left: 30%;
+  }
+  
+  
 }
