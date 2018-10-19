@@ -1,4 +1,6 @@
 ## Circus Game
+Game can be played here: https://jugglingrose.github.io/game/
+Note that the game isn't completed yet.
 
 # What is it?
 A fun web based game that I developed for fun using HTML5 CANVAS & P5 Processing. I designed some of the vectors myself in Illustrator.
