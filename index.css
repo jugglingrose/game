@@ -1,6 +1,6 @@
 
   .bg{
-    background-image: url('/assets/bubble_gum_bg.png');
+    background-image: url('assets/bubble_gum_bg.png');
     background-repeat: no-repeat;
     background-position: 49% 46%;
     margin: 0;
@@ -8,7 +8,7 @@
   }
   
   .end{
-    background-image: url('/assets/game_over_page.svg');
+    background-image: url('assets/game_over_page.svg');
     background-repeat: no-repeat;
     background-position: 49% 46%;;
     background-size: cover;
@@ -28,7 +28,7 @@
   
   /* Level One Instruction Display */
   .levelOne{
-    background-image: url('/assets/level_a_directions.png');
+    background-image: url('assets/level_a_directions.png');
     background-repeat: no-repeat;
     background-size: cover;
   }
