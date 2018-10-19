@@ -151,9 +151,7 @@ function draw() {
   as the game progresses */
   counter++;
   gameCounter++;
-  if(gameCounter === 5000){
-    console.log("game over");
-  }
+  
   if(gameCounter === 4000){
     while(counter === 5){
       addToArray();
@@ -191,7 +189,7 @@ function draw() {
   /*If no lives remain, end game.  Change the background image to display the game over background.
   Display the restart button. Stop the draw loop.  Call restart function if user clicks the restart 
   button */
-  if(livesArray.length === 0){
+  if(livesArray.length === 0 || gameCounter === 5000){
     console.log('game over');
     var restart = select('#restart');
     restart.removeClass('nodisplay');
