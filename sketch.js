@@ -29,17 +29,17 @@ p5.disableFriendlyErrors = true;
 
 /*preload our images*/
 function preload() {
-  blue_club = loadImage('/assets/blue.png');
-  pink_club = loadImage('/assets/pink_juggle_club.png');
-  red_ball = loadImage('/assets/red_ball.png');
-  purple_ball = loadImage('/assets/purple_ball.png');
-  unicorn = loadImage('/assets/unciron_game.png');
-  rainbow = loadImage('/assets/rainbow2.svg');
-  dog = loadImage('/assets/dino_dog.png');
-  star = loadImage('/assets/star_glitter.png');
-  pink_glitter = loadImage('/assets/pink_glitter.png');
-  orange_feather = loadImage('/assets/orange_feather.png');
-  fire = loadImage('/assets/fire_torch.png');
+  blue_club = loadImage('assets/blue.png');
+  pink_club = loadImage('assets/pink_juggle_club.png');
+  red_ball = loadImage('assets/red_ball.png');
+  purple_ball = loadImage('assets/purple_ball.png');
+  unicorn = loadImage('assets/unciron_game.png');
+  rainbow = loadImage('assets/rainbow2.svg');
+  dog = loadImage('assets/dino_dog.png');
+  star = loadImage('assets/star_glitter.png');
+  pink_glitter = loadImage('assets/pink_glitter.png');
+  orange_feather = loadImage('assets/orange_feather.png');
+  fire = loadImage('assets/fire_torch.png');
 }
 
 /* set up the canvas */
