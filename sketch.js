@@ -107,20 +107,11 @@ function init() {
 a new juggle item to our juggleArray every x miliseconds.  This way our array items don't display
 on screen all at one time*/
 function addToArray() {
-    
-  if(gameCounter < 1000){
+
     for(var i =0; i < 1; i ++){
       setVariables();
       juggleArray.push(new Juggle(selectedimg, y, randomX, objectHeight, objectWidth))
     }
-  }else{
-    for(var i =0; i < 1; i ++){
-      setVariables();
-      juggleArray.push(new Juggle(selectedimg, y, randomX, objectHeight, objectWidth))
-  }
-}
-
-
   /*if(level === 2){
     for(var i=0; i< 3; i++){
       var img = colorSelect();
@@ -152,14 +143,12 @@ function draw() {
   counter++;
   gameCounter++;
   
-  if(gameCounter === 4000){
-    while(counter === 5){
-      addToArray();
-      counter = 0;
-    }
+  if(gameCounter === 4500){
+    console.log("game over");
+    counter = 0;
   }
   if(gameCounter >= 3000){
-    while(counter === 10){
+    while(counter === 5){
       addToArray();
       counter = 0;
     }
@@ -189,7 +178,7 @@ function draw() {
   /*If no lives remain, end game.  Change the background image to display the game over background.
   Display the restart button. Stop the draw loop.  Call restart function if user clicks the restart 
   button */
-  if(livesArray.length === 0 || gameCounter === 5000){
+  if(livesArray.length === 0 || gameCounter === 4500){
     console.log('game over');
     var restart = select('#restart');
     restart.removeClass('nodisplay');
@@ -238,5 +227,6 @@ function draw() {
    /* Update the main Character */
    mainCharacter.update();
 }
+
 
 /* run http-server. */
